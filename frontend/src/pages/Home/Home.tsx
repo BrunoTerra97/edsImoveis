@@ -1,7 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Header, PageContainer } from './style';
 
-const Home: React.FC = () => <div>abcd</div>;
+import { PageContainer } from '../../styles/DefaultStyles/DefaultStyles';
+
+const Home: React.FC = () => {
+
+  return (
+    <PageContainer>
+      <div>aaaaa</div>
+    </PageContainer>
+  )
+};
 
 export default Home;

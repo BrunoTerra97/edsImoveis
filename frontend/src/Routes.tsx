@@ -2,11 +2,13 @@ import React from 'react';
 
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
-import Home from './pages/Home/Home';
-import Cadastro from './pages/Cadastro/Cadastro';
+import Home from './Pages/Home/Home';
+import Cadastro from './Pages/Cadastro/Cadastro';
+import Header from './Components/Header/Header';
 
 const Routes: React.FC = () => (
   <BrowserRouter>
+    <Header buttons={[{title: 'Cadastrar Imóvel', link: '/cadastro'}]}/>
     <Switch>
       <Route exact path='/'>
         <Redirect to="/home" />
