@@ -26,19 +26,19 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const bairros = ["Gameleira", "Barreiro"];
 const emptyForm = {
-  quartos: "0",
-  suites: "0",
-  salasEstar: "0",
-  salasJantar: "0",
-  area: "0",
-  vagas: "0",
+  quartos: "",
+  suites: "",
+  salasEstar: "",
+  salasJantar: "",
+  area: "",
+  vagas: "",
   bairro: "",
   armario: false,
-  andar: "0",
-  valorCondominio: "0",
+  andar: "",
+  valorCondominio: "",
   portaria: false,
   descricao: "",
-  aluguel: "0",
+  aluguel: "",
 };
 
 const Cadastro: React.FC = () => {
@@ -82,7 +82,7 @@ const Cadastro: React.FC = () => {
       />
       <TextField
         id="outlined-basic 3"
-        label="Número de salas de estar"
+        label="Salas de estar"
         variant="outlined"
         value={formInfo.salasEstar}
         onChange={({ target }) => {
@@ -97,7 +97,7 @@ const Cadastro: React.FC = () => {
       />
       <TextField
         id="outlined-basic 4"
-        label="Número de salas de jantar"
+        label="Salas de jantar"
         variant="outlined"
         value={formInfo.salasJantar}
         onChange={({ target }) => {

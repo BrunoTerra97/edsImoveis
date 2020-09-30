@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../../Services/api";
 
 import { PageContainer } from "../../styles/DefaultStyles/DefaultStyles";
-import { FormContainer, ImovelContainer, Title } from "./style";
+import { FormContainer, ImovelContainer, RowContainer, Title } from "./style";
 
 interface Imovel {
   aluguel: string;
@@ -25,39 +25,45 @@ interface Imovel {
 const Home: React.FC = () => {
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    (async function loadData() {
-      console.log("rodando load");
-      const res = await api.get("/imoveis", {});
-      console.log(res.data);
-      if (res.data !== []) {
-        setData(res.data.imoveis);
-      } else {
-        alert("Houve um erro ao comunicar com o servidor");
-      }
-    })();
+  async function loadData() {
+    console.log("rodando load");
+    const res = await api.get("/imoveis", {});
+    console.log(res.data);
+    if (res.data !== []) {
+      setData(res.data.imoveis);
+    } else {
+      alert("Houve um erro ao comunicar com o servidor");
+    }
+  }
 
+  useEffect(() => {
+    loadData();
     return () => {};
   }, []);
-  // aluguel: "12345699"
-  // andar: "0"
-  // area: "0"
-  // armario: "0"
-  // bairro: "Teste Outro BAirro"
-  // descricao: ""
-  // id: "c554ff8ff8702b5a1d271e510c186a8dc6eda58faf9e8b45"
-  // portaria: "0"
-  // quartos: "0"
-  // salasEstar: "0"
-  // salasJantar: "0"
-  // suites: "0"
-  // tipoImovel: "Casa"
-  // vagas: null
-  // valorCondominio: "0"
-  function renderImovel(imovel: Imovel) {
+
+  function renderImovel(imovel: Imovel, i: number) {
     console.log(imovel);
-    return <ImovelContainer>
-      <Title>Tipo de imovel: {imovel.tipoImovel}</Title>
+    return <ImovelContainer key={i}>
+      <button
+        onClick={async () => {
+          const response = await api.delete(`/imoveis/${imovel.id}`);
+          loadData();
+        }}
+      >LIXO</button>
+      <RowContainer><Title>Tipo de imovel:</Title> {' ' + imovel.tipoImovel}</RowContainer>
+      <RowContainer><Title>Aluguel:</Title> {' ' + imovel.aluguel} </RowContainer>
+      <RowContainer><Title>Andar:</Title> {' ' + imovel.andar} </RowContainer>
+      <RowContainer><Title>Área:</Title> {' ' + imovel.area} </RowContainer>
+      <RowContainer><Title>Possui armarios:</Title> {' ' + !!imovel.armario ? "Sim": "Não"} </RowContainer>
+      <RowContainer><Title>Bairro:</Title> {' ' + imovel.bairro} </RowContainer>
+      <RowContainer><Title>Descrição:</Title> {' ' + imovel.descricao} </RowContainer>
+      <RowContainer><Title>Possui portaria 24h:</Title> {' ' + !!imovel.portaria ? "Sim": "Não"} </RowContainer>
+      <RowContainer><Title>Quartos:</Title> {' ' + imovel.quartos} </RowContainer>
+      <RowContainer><Title>Salas de Estrar:</Title> {' ' + imovel.salasEstar} </RowContainer>
+      <RowContainer><Title>Salas de Jantar:</Title> {' ' + imovel.salasJantar} </RowContainer>
+      <RowContainer><Title>Tipo de imovel:</Title> {' ' + imovel.suites} </RowContainer>
+      <RowContainer><Title>Número de vagas:</Title> {' ' + imovel.vagas} </RowContainer>
+      <RowContainer><Title>Valor do condomínio:</Title> {' ' + imovel.valorCondominio} </RowContainer>
     </ImovelContainer>
   }
 
@@ -65,7 +71,7 @@ const Home: React.FC = () => {
     <PageContainer>
       <FormContainer>
         {data.length > 0 ? (
-          data.map((e) => renderImovel(e))
+          data.map((e, i) => renderImovel(e, i))
         ) : (
           <div>CARREGANDO</div>
         )}

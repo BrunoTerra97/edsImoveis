@@ -52,16 +52,6 @@ const createImovel = async (req: Request, res: Response) => {
 
 const deleteImovel = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const imovelId = req.headers.authorization;
-
-  const imovel = await connection('imoveis')
-    .where('id', id)
-    .select('id')
-    .first();
-
-  if (imovel.id !== imovelId) {
-    return res.status(401).json({ error: 'Operation not permited.'})
-  }
 
   await connection('imoveis').where('id', id).delete();
   return res.status(204).send();

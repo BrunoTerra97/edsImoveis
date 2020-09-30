@@ -18,7 +18,7 @@ export const ImovelContainer = styled.div`
   flex-direction: column;
   padding: 10px;
   width: 200px;
-  height: 200px;
+  min-height: 200px;
   border-radius: 10px;
   align-items: flex-start;
   /* justify-content: flex-start; */
@@ -28,4 +28,9 @@ export const ImovelContainer = styled.div`
 
 export const Title = styled.div`
   font-weight: bold;
+`;
+
+export const RowContainer = styled.div`
+  display: flex;
+  flex-direction: row;
 `;

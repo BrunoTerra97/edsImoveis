@@ -3,7 +3,7 @@ import React from "react";
 import { HeaderContainer, Button } from "./style";
 
 interface Props {
-  buttons: [{ title: string; link: string }];
+  buttons: [{ title: string; link: string },{ title: string; link: string }];
 }
 
 const Header: React.FC<Props> = ({ buttons }) => {
