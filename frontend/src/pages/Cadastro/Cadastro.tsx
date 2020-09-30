@@ -6,7 +6,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import { CheckBoxContaier, CustomText, FormContainer } from "./style";
+import { CheckBoxContainer, CustomText, FormContainer } from "./style";
 import { Button, Checkbox, TextField } from "@material-ui/core";
 import api from "../../Services/api";
 
@@ -165,7 +165,7 @@ const Cadastro: React.FC = () => {
         )}
       </FormControl>
 
-      <CheckBoxContaier>
+      <CheckBoxContainer>
         <CustomText>Possui armário</CustomText>
         <Checkbox
           checked={formInfo.armario}
@@ -175,7 +175,7 @@ const Cadastro: React.FC = () => {
           }}
           inputProps={{ "aria-label": "primary checkbox" }}
         />
-      </CheckBoxContaier>
+      </CheckBoxContainer>
       {tipoImovel === "Apartamento" && (
         <>
           <TextField
@@ -204,7 +204,7 @@ const Cadastro: React.FC = () => {
               }));
             }}
           />
-          <CheckBoxContaier>
+          <CheckBoxContainer>
             <CustomText>Possui portaria 24h</CustomText>
             <Checkbox
               checked={formInfo.portaria}
@@ -214,7 +214,7 @@ const Cadastro: React.FC = () => {
               }}
               inputProps={{ "aria-label": "primary checkbox" }}
             />
-          </CheckBoxContaier>
+          </CheckBoxContainer>
         </>
       )}
       <TextField
@@ -271,7 +271,7 @@ const Cadastro: React.FC = () => {
 
   return (
     <PageContainer>
-      <FormControl className={classes.formControl}>
+      <FormControl style={{margin: '50px 25vw'}} className={classes.formControl}>
         <InputLabel id="demo-simple-select-label">Tipo de imóvel</InputLabel>
         <Select
           autoWidth={true}
