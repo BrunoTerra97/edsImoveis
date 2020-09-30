@@ -10,6 +10,8 @@ import { CheckBoxContainer, CustomText, FormContainer } from "./style";
 import { Button, Checkbox, TextField } from "@material-ui/core";
 import api from "../../Services/api";
 
+const numbers = /^[0-9]+$/;
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     formControl: {
@@ -24,37 +26,36 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const bairros = ["Gameleira", "Barreiro"];
 const emptyForm = {
-  quartos: 0,
-  suites: 0,
-  salasEstar: 0,
-  salasJantar: 0,
-  area: 0,
-  vagas: 0,
+  quartos: "0",
+  suites: "0",
+  salasEstar: "0",
+  salasJantar: "0",
+  area: "0",
+  vagas: "0",
   bairro: "",
   armario: false,
-  andar: 0,
-  valorCondominio: 0.0,
+  andar: "0",
+  valorCondominio: "0",
   portaria: false,
   descricao: "",
-  aluguel: 0.0,
+  aluguel: "0",
 };
-
 
 const Cadastro: React.FC = () => {
   const classes = useStyles();
   const [tipoImovel, setTipoImovel] = useState("");
-
+  console.log("tipoImovel");
+  console.log(tipoImovel);
   const [formInfo, setFormInfo] = useState(emptyForm);
 
   const [showOutros, setShowOutros] = useState(false);
 
-  console.log(JSON.stringify(formInfo));
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setTipoImovel(event.target.value as string);
   };
 
   const ApartamentoContent = (
-    <FormContainer>
+    <>
       <TextField
         id="outlined-basic 1"
         label="Número de quartos"
@@ -62,7 +63,9 @@ const Cadastro: React.FC = () => {
         value={formInfo.quartos}
         onChange={({ target }) => {
           const { value } = target;
-          setFormInfo((f) => ({ ...f, quartos: parseInt(value) }));
+          if (value.match(numbers) || value === "") {
+            setFormInfo((f) => ({ ...f, quartos: value }));
+          }
         }}
       />
       <TextField
@@ -72,7 +75,9 @@ const Cadastro: React.FC = () => {
         value={formInfo.suites}
         onChange={({ target }) => {
           const { value } = target;
-          setFormInfo((f) => ({ ...f, suites: parseInt(value) }));
+          if (value.match(numbers) || value === "") {
+            setFormInfo((f) => ({ ...f, suites: value }));
+          }
         }}
       />
       <TextField
@@ -82,10 +87,12 @@ const Cadastro: React.FC = () => {
         value={formInfo.salasEstar}
         onChange={({ target }) => {
           const { value } = target;
-          setFormInfo((f) => ({
-            ...f,
-            salasEstar: parseInt(value),
-          }));
+          if (value.match(numbers) || value === "") {
+            setFormInfo((f) => ({
+              ...f,
+              salasEstar: value,
+            }));
+          }
         }}
       />
       <TextField
@@ -95,10 +102,12 @@ const Cadastro: React.FC = () => {
         value={formInfo.salasJantar}
         onChange={({ target }) => {
           const { value } = target;
-          setFormInfo((f) => ({
-            ...f,
-            salasJantar: parseInt(value),
-          }));
+          if (value.match(numbers) || value === "") {
+            setFormInfo((f) => ({
+              ...f,
+              salasJantar: value,
+            }));
+          }
         }}
       />
       <TextField
@@ -108,7 +117,9 @@ const Cadastro: React.FC = () => {
         value={formInfo.vagas}
         onChange={({ target }) => {
           const { value } = target;
-          setFormInfo((f) => ({ ...f, vagas: parseInt(value) }));
+          if (value.match(numbers) || value === "") {
+            setFormInfo((f) => ({ ...f, vagas: value }));
+          }
         }}
       />
       <TextField
@@ -118,7 +129,9 @@ const Cadastro: React.FC = () => {
         value={formInfo.area}
         onChange={({ target }) => {
           const { value } = target;
-          setFormInfo((f) => ({ ...f, area: parseInt(value) }));
+          if (value.match(numbers) || value === "") {
+            setFormInfo((f) => ({ ...f, area: value }));
+          }
         }}
       />
       <FormControl className={classes.formControl}>
@@ -185,10 +198,12 @@ const Cadastro: React.FC = () => {
             value={formInfo.andar}
             onChange={({ target }) => {
               const { value } = target;
-              setFormInfo((f) => ({
-                ...f,
-                andar: parseInt(value),
-              }));
+              if (value.match(numbers) || value === "") {
+                setFormInfo((f) => ({
+                  ...f,
+                  andar: value,
+                }));
+              }
             }}
           />
           <TextField
@@ -198,10 +213,12 @@ const Cadastro: React.FC = () => {
             value={formInfo.valorCondominio}
             onChange={({ target }) => {
               const { value } = target;
-              setFormInfo((f) => ({
-                ...f,
-                valorCondominio: parseFloat(value),
-              }));
+              if (value.match(numbers) || value === "") {
+                setFormInfo((f) => ({
+                  ...f,
+                  valorCondominio: value,
+                }));
+              }
             }}
           />
           <CheckBoxContainer>
@@ -237,55 +254,103 @@ const Cadastro: React.FC = () => {
         value={formInfo.aluguel}
         onChange={({ target }) => {
           const { value } = target;
-          setFormInfo((f) => ({
-            ...f,
-            aluguel: parseFloat(value),
-          }));
+          if (value.match(numbers) || value === "") {
+            setFormInfo((f) => ({
+              ...f,
+              aluguel: value,
+            }));
+          }
         }}
       />
       <Button
         style={{
           gridColumn: 3,
           width: "50%",
-          margin: 'auto',
+          margin: "auto",
         }}
         variant="contained"
         color="primary"
         onClick={async () => {
-          if(formInfo.aluguel !== 0) {
-            // const response = await
-            api.post('/imovel', formInfo); //Precisa de await
+          if (
+            formInfo.aluguel !== "" &&
+            formInfo.aluguel.length > 0 &&
+            formInfo.aluguel !== "0"
+          ) {
+            const {
+              quartos,
+              suites,
+              salasEstar,
+              salasJantar,
+              area,
+              vagas,
+              bairro,
+              armario,
+              andar,
+              valorCondominio,
+              portaria,
+              descricao,
+              aluguel,
+            } = formInfo;
 
-            setFormInfo(emptyForm); // Limpa formulário
-            alert("Imóvel salvo");
+            const res = await api.post("/imoveis", {
+              quartos: parseFloat(quartos),
+              suites: parseFloat(suites),
+              salasEstar: parseFloat(salasEstar),
+              salasJantar: parseFloat(salasJantar),
+              area: parseFloat(area),
+              vagas: parseFloat(vagas),
+              bairro: bairro,
+              armario: armario,
+              andar: parseFloat(andar),
+              valorCondominio: parseFloat(valorCondominio),
+              portaria: portaria,
+              descricao: descricao,
+              aluguel: parseFloat(aluguel),
+              tipoImovel,
+            }); //Precisa de await
+            if (!!res) {
+              setFormInfo(emptyForm); // Limpa formulário
+              alert("Imóvel salvo");
+            } else {
+              alert("erro ao comunicar com o servidor");
+            }
           } else {
-            alert("O campo valor é obrigatório");
+            alert("O campo valor do aluguel é obrigatório");
           }
         }}
       >
         Salvar
       </Button>
-      
-    </FormContainer>
+    </>
   );
 
   return (
     <PageContainer>
-      <FormControl style={{margin: '50px 25vw'}} className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label">Tipo de imóvel</InputLabel>
-        <Select
-          autoWidth={true}
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={tipoImovel}
-          onChange={handleChange}
+      <FormContainer>
+        <FormControl
+          style={{
+            gridColumn: 1,
+            gridRow: 1,
+            borderRadius: 8,
+          }}
+          className={classes.formControl}
         >
-          <MenuItem value="Casa">Casa</MenuItem>
-          <MenuItem value="Apartamento">Apartamento</MenuItem>
-        </Select>
-      </FormControl>
-
-      {tipoImovel && ApartamentoContent}
+          <InputLabel id="demo-simple-select-label">Tipo de imóvel</InputLabel>
+          <Select
+            autoWidth={true}
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={tipoImovel}
+            onChange={handleChange}
+          >
+            <MenuItem value="Casa">Casa</MenuItem>
+            <MenuItem value="Apartamento">Apartamento</MenuItem>
+          </Select>
+        </FormControl>
+        <div></div>
+        <div></div>
+        {tipoImovel && ApartamentoContent}
+      </FormContainer>
     </PageContainer>
   );
 };
