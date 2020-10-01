@@ -11,15 +11,15 @@ export const FormContainer = styled.div`
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   align-items: center;
-  background-color: #e0e0e0;
+  background-color: #f5f5f5;
   box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
 `;
 
 export const CheckBoxContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
 
 export const CustomText = styled.div`

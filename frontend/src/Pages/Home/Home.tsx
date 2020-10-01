@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import api from "../../Services/api";
-import "./home.css";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   PageContainer,
@@ -63,7 +62,7 @@ const useStyles = makeStyles((theme: any) => ({
 const Home: React.FC = () => {
   const classes = useStyles();
   const [data, setData] = useState([]);
-  const [expanded, setExpanded] = useState<boolean[]>([]) ;
+  const [expanded, setExpanded] = useState<boolean[]>([]);
 
   async function loadData() {
     console.log("rodando load");
@@ -71,7 +70,7 @@ const Home: React.FC = () => {
     console.log(res.data);
     if (res.data !== []) {
       setData(res.data.imoveis);
-      setExpanded(res.data.imoveis.map(() => false))
+      setExpanded(res.data.imoveis.map(() => false));
     } else {
       alert("Houve um erro ao comunicar com o servidor");
     }
@@ -83,86 +82,90 @@ const Home: React.FC = () => {
   }, []);
 
   function renderImovel(imovel: Imovel, i: number) {
-    console.log(imovel);
     return (
-      <Card key={i} style={{maxHeight:'fit-content !important'}}>
-        <CardHeader
-          title={imovel.tipoImovel}
-          subheader={imovel.bairro}
-          action={
-            <IconButton
-              onClick={async () => {
-                const response = await api.delete(`/imoveis/${imovel.id}`);
-                loadData();
-              }}
-            >
-              <DeleteForever />
-            </IconButton>
-          }
-        ></CardHeader>
-        <CardContent>
-            <Title>Descrição</Title> <RowContainer>{" " + imovel.descricao}</RowContainer>
-
-          {imovel.valorCondominio ? (
-            <RowContainer>
-              <Title>Valor do condomínio: </Title>{" "}
-              {"R$" + imovel.valorCondominio}{",00"}
-            </RowContainer>
-          ) : null}
-          
-        </CardContent>
-
-        <CardActions>
-        <Title style={{marginLeft:'8px'}}>R$ {imovel.aluguel},00</Title>
-          <IconButton
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded[i],
-            })}
-            onClick={() => setExpanded(expanded.map((y : any,x:any) => x===i? !y : y))
+      <div>
+        <Card key={i} style={{ minHeight: '261px' }}>
+          <CardHeader
+            title={imovel.tipoImovel}
+            subheader={imovel.bairro}
+            action={
+              <IconButton
+                onClick={async () => {
+                  const response = await api.delete(`/imoveis/${imovel.id}`);
+                  loadData();
+                }}
+              >
+                <DeleteForever />
+              </IconButton>
             }
-            aria-expanded={expanded[i]}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </IconButton>
-        </CardActions>
-        <Collapse in={expanded[i]} timeout="auto" unmountOnExit>
+          ></CardHeader>
           <CardContent>
-            <RowContainer>
-              <Title>Quartos: </Title> {" " + imovel.quartos}{" "}
-            </RowContainer>
-            <RowContainer>
-              <Title>Suítes: </Title>
-              {" " + imovel.suites}
-            </RowContainer>
-            <RowContainer>
-              <Title>Salas de Estar: </Title> {" " + imovel.salasEstar}{" "}
-            </RowContainer>
-            <RowContainer>
-              <Title>Salas de Jantar: </Title> {" " + imovel.salasJantar}{" "}
-            </RowContainer>
-            <RowContainer>
-              <Title>Número de vagas: </Title> {" " + imovel.vagas}{" "}
-            </RowContainer>
-            {imovel.andar ? (
+            <Title>Descrição</Title>{" "}
+            <RowContainer>{" " + imovel.descricao}</RowContainer>
+            {imovel.valorCondominio ? (
               <RowContainer>
-                <Title>Andar: </Title> {" " + imovel.andar}
+                <Title>Valor do condomínio: </Title>{" "}
+                {"R$" + imovel.valorCondominio}
+                {",00"}
               </RowContainer>
             ) : null}
-            <RowContainer>
-              <Title>Área: </Title> {" " + imovel.area}{" "}
-            </RowContainer>
-            <RowContainer>
-              <Title>Possui armarios: </Title>{" "}
-              {" " + !!imovel.armario ? "Sim" : "Não"}{" "}
-            </RowContainer>
-            <RowContainer>
-              <Title>Possui portaria 24h: </Title>{" "}
-              {" " + !!imovel.portaria ? "Sim" : "Não"}{" "}
-            </RowContainer>
           </CardContent>
-        </Collapse>
-      </Card>
+
+          <CardActions>
+            <Title style={{ marginLeft: "8px" }}>R$ {imovel.aluguel},00</Title>
+            <IconButton
+              className={clsx(classes.expand, {
+                [classes.expandOpen]: expanded[i],
+              })}
+              onClick={() =>
+                setExpanded(
+                  expanded.map((y: any, x: any) => (x === i ? !y : y))
+                )
+              }
+              aria-expanded={expanded[i]}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+          </CardActions>
+          <Collapse in={expanded[i]} timeout="auto" unmountOnExit>
+            <CardContent>
+              <RowContainer>
+                <Title>Quartos: </Title> {" " + imovel.quartos}{" "}
+              </RowContainer>
+              <RowContainer>
+                <Title>Suítes: </Title>
+                {" " + imovel.suites}
+              </RowContainer>
+              <RowContainer>
+                <Title>Salas de Estar: </Title> {" " + imovel.salasEstar}{" "}
+              </RowContainer>
+              <RowContainer>
+                <Title>Salas de Jantar: </Title> {" " + imovel.salasJantar}{" "}
+              </RowContainer>
+              <RowContainer>
+                <Title>Número de vagas: </Title> {" " + imovel.vagas}{" "}
+              </RowContainer>
+              {imovel.andar ? (
+                <RowContainer>
+                  <Title>Andar: </Title> {" " + imovel.andar}
+                </RowContainer>
+              ) : null}
+              <RowContainer>
+                <Title>Área: </Title> {" " + imovel.area}{" "}
+              </RowContainer>
+              <RowContainer>
+                <Title>Possui armarios: </Title>{" "}
+                {" " + !!imovel.armario ? "Sim" : "Não"}{" "}
+              </RowContainer>
+              <RowContainer>
+                <Title>Possui portaria 24h: </Title>{" "}
+                {" " + !!imovel.portaria ? "Sim" : "Não"}{" "}
+              </RowContainer>
+            </CardContent>
+          </Collapse>
+        </Card>
+      </div>
     );
   }
 
