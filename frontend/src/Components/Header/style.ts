@@ -4,13 +4,12 @@ import styled from "styled-components";
 export const HeaderContainer = styled.header`
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   width: 100%;
   height: 50px;
-  box-shadow: 1px 1px 5px grey;
-  margin-bottom: 5px;
-  background-color: #f0f0f0;
+  0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+  background-color: #2F4F4F;
   
 `;
 
@@ -23,5 +22,5 @@ export const Button = styled(Link)`
   text-decoration: none;
   font-family: 'Open Sans', sans-serif;
   font-weight: bold;
-  color: rgba(50, 80, 200, 1);
+  color: white;
 `;

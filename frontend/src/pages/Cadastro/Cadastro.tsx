@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { PageContainer } from "../../styles/DefaultStyles/DefaultStyles";
+import { PageContainer,BackGround } from "../../styles/DefaultStyles/DefaultStyles";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -274,7 +274,8 @@ const Cadastro: React.FC = () => {
           if (
             formInfo.aluguel !== "" &&
             formInfo.aluguel.length > 0 &&
-            formInfo.aluguel !== "0"
+            formInfo.aluguel !== "0" &&
+            formInfo.vagas !== null 
           ) {
             const {
               quartos,
@@ -298,7 +299,7 @@ const Cadastro: React.FC = () => {
               salasEstar: parseFloat(salasEstar),
               salasJantar: parseFloat(salasJantar),
               area: parseFloat(area),
-              vagas: parseFloat(vagas),
+              vagas: parseInt(vagas),
               bairro: bairro,
               armario: armario,
               andar: parseFloat(andar),
@@ -326,6 +327,7 @@ const Cadastro: React.FC = () => {
 
   return (
     <PageContainer>
+      <BackGround></BackGround>
       <FormContainer>
         <FormControl
           style={{

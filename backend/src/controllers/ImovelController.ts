@@ -24,6 +24,7 @@ const createImovel = async (req: Request, res: Response) => {
     bairro,
     armario,
     andar,
+    vagas,
     valorCondominio,
     portaria,
     descricao,
@@ -31,7 +32,7 @@ const createImovel = async (req: Request, res: Response) => {
   } = req.body;
 
   const [ id ] = await connection('imoveis').insert({
-    id: randomBytes(24).toString("HEX"),
+    id: randomBytes(24).toString("hex"),
     quartos,
     tipoImovel,
     suites,
@@ -39,6 +40,7 @@ const createImovel = async (req: Request, res: Response) => {
     salasJantar,
     area,
     bairro,
+    vagas,
     armario,
     andar,
     valorCondominio,

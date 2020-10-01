@@ -17,7 +17,7 @@ export const FormContainer = styled.div`
 
 export const CheckBoxContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: space-around;
 `;

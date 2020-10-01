@@ -7,5 +7,13 @@ export const PageContainer = styled.div`
   width: 100%;
   height: calc(100% - 60px);
   background-color: #fafafa;
-  background-image: url(${img});
 `;
+
+export const BackGround = styled.div`
+  width: 100%;
+  display: flex;
+  height: 20vh;
+  background-image: url(${img});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;`;
